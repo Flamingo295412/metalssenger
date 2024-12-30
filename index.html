@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мессенджер</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+        .chat-box {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .message {
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+        .sent {
+            background-color: #d1ffd1;
+            text-align: right;
+        }
+        .received {
+            background-color: #f0f0f0;
+            text-align: left;
+        }
+        .message-input {
+            display: flex;
+            gap: 10px;
+        }
+        .message-input input {
+            flex-grow: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .message-input button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .message-input button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Добро пожаловать в Мессенджер!</h1>
+</header>
+
+<div class="chat-container">
+    <div class="chat-box" id="chatBox">
+        <!-- Сообщения будут отображаться здесь -->
+    </div>
+
+    <div class="message-input">
+        <input type="text" id="messageInput" placeholder="Введите сообщение" />
+        <button onclick="sendMessage()">Отправить</button>
+    </div>
+</div>
+
+<!-- Форма регистрации -->
+<div id="registrationForm" style="text-align:center; padding: 20px;">
+    <h2>Регистрация</h2>
+    <form id="registerForm">
+        <input type="text" id="username" placeholder="Введите имя" required><br><br>
+        <input type="password" id="password" placeholder="Введите пароль" required><br><br>
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+    <p id="registerMessage"></p>
+</div>
+
+<script>
+    // Функция для отправки сообщений
+    function sendMessage() {
+        const messageInput = document.getElementById('messageInput');
+        const chatBox = document.getElementById('chatBox');
+
+        if (messageInput.value.trim() !== "") {
+            const message = document.createElement('div');
+            message.classList.add('message', 'sent');
+            message.innerText = messageInput.value;
+            chatBox.appendChild(message);
+            messageInput.value = ""; // Очистить поле ввода
+            chatBox.scrollTop = chatBox.scrollHeight; // Прокрутить чат вниз
+        }
+    }
+
+    // Обработка регистрации
+    document.getElementById('registerForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        if (username && password) {
+            document.getElementById('registerMessage').innerText = "Регистрация успешна! Можете войти.";
+            document.getElementById('registerForm').reset(); // Очистить форму
+        } else {
+            document.getElementById('registerMessage').innerText = "Пожалуйста, заполните все поля.";
+        }
+    });
+</script>
+
+</body>
+</html>
